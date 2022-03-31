@@ -27,7 +27,7 @@ let str: string = `
 //   }
 // }
 
-let input: string = "[3.14, -3.14, .14, -.14, 3., -3., +12]";
+let input: string = "[3.14, -3.14, .14, -.14, 3., -3., +12, 100, 22 , 3]";
 tokenizer.setSource(input);
 while (tokenizer.moveNext()) {
   if (tokenizer.current.type === ETokenType.NUMBER) {

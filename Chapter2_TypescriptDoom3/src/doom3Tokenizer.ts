@@ -168,7 +168,7 @@ class Doom3Tokenizer implements IDoom3Tokenizer {
         c = this._skipComments0()
       } else if (c === '/' && this._peekChar() === '*') {
         c = this._skipComments1()
-      } else if (this._isDigits(c) || c === '-' || (c === '.') && this._isDigits(this._peekChar())) {
+      } else if (this._isDigits(c) || c === '-' || c === '+' || (c === '.') && this._isDigits(this._peekChar())) {
         // 判断数字
         this._ungetChar()
         this._getNumber(token)
@@ -205,7 +205,7 @@ class Doom3Tokenizer implements IDoom3Tokenizer {
       token.addChar(c)
       if (c === '.') {
         isFloat = true
-      } else if(c !== '-') {
+      } else if(c !== '-' && c !== '+') {
         let ascii: number = c.charCodeAt(0)
         let vc: number = (ascii - ascii0)
         if (!isFloat) {
