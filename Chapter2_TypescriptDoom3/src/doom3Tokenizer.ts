@@ -124,7 +124,7 @@ class Doom3Tokenizer implements IDoom3Tokenizer {
   }
 
   public moveNext(): boolean {
-    return this.getNextToken(this._current)
+    return this._getNextToken(this._current)
   }
 
   public get current () : IDoom3Token {
@@ -154,7 +154,7 @@ class Doom3Tokenizer implements IDoom3Tokenizer {
     return "";
   }
 
-  private getNextToken(tok: IDoom3Token): boolean {
+  private _getNextToken(tok: IDoom3Token): boolean {
     let token: Doom3Token = tok as Doom3Token
     let c: string = ""
     // 为什么要reset
