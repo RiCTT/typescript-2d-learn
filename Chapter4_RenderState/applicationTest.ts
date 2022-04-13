@@ -43,4 +43,7 @@ let canvas2dApp = new TestCanvas2DApplication(canvas)
 
 // canvas2dApp.start()
 // canvas2dApp.strokeGrid();
-canvas2dApp.testMyTextLayout();
+// canvas2dApp.testMyTextLayout();
+// canvas2dApp.loadAndDrawImage("./data/test.jpg");
+canvas2dApp.drawColorCanvas();
+canvas2dApp.testChangePartCanvasImageData();
