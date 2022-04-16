@@ -46,9 +46,9 @@ canvas2dApp.drawCanvasCoordCenter()
 // canvas2dApp.doTransform0()
 // canvas2dApp.doTransform(30, true)
 // canvas2dApp.doTransform(30, false)
-canvas2dApp.testFillLocalRectWithTitleUV()
+// canvas2dApp.testFillLocalRectWithTitleUV()
 
-// canvas2dApp.start()
+canvas2dApp.start()
 // canvas2dApp.strokeGrid();
 // canvas2dApp.testMyTextLayout();
 // canvas2dApp.loadAndDrawImage("./data/test.jpg");

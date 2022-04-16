@@ -102,6 +102,9 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
 
   private _img!: HTMLImageElement;
 
+  private _mouseX: number = 0;
+  private _mouseY: number = 0;
+
 
   constructor(canvas: HTMLCanvasElement) {
     super(canvas)
@@ -110,9 +113,18 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
 
   public render(): void {
     if (this.context2D) {
-      // this.context2D.clearRect(0, 0, this.canvas.width, this.canvas.height)
-      // this.strokeGrid();
+      this.context2D.clearRect(0, 0, this.canvas.width, this.canvas.height)
+      this.strokeGrid();
+      this.drawCanvasCoordCenter()
+      this.draw4Quadrant()
+      this.rotationAndRevolutionSimulation();
     }
+  }
+
+  public update(elapsedMsec: number, intervalSec: number): void {
+    this._rotationMoon += this._rotationMoonSpeed * intervalSec;
+    this._rotationSun += this._rotationSunSpeed * intervalSec;
+    this._revolution += this._revolutionSpeed * intervalSec;
   }
 
   public drawRect(x: number, y: number, w: number, h: number): void {
@@ -1118,7 +1130,7 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
     // this.context2D.translate(x + radius * 0.5, y - radius * 0.5)
     // this.fillLocalRectWithTitleUV(width, height, 'u = -0.5, v = -0.5', -0.5, -0.5)
     // this.context2D.restore()
-    
+
     // 第三象限
     this.context2D.save();
     this.context2D.translate(this.canvas.width * 0.5 - radius * 0.4, this.canvas.height * 0.5 - radius * 0.4);
@@ -1141,6 +1153,56 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
     this.context2D.save();
     this.context2D.translate(this.canvas.width * 0.5 - radius * 0.1, this.canvas.height * 0.5 + radius * 0.25);
     this.fillLocalRectWithTitleUV(100, 60, 'u = 1 / v = 0.2', 1, 0.2);
+    this.context2D.restore();
+  }
+
+  private _rotationSunSpeed: number = 50
+  private _rotationMoonSpeed: number = 100
+  private _revolutionSpeed: number = 60
+
+  private _rotationSun: number = 0
+  private _rotationMoon: number = 0
+  private _revolution: number = 0
+
+  public rotationAndRevolutionSimulation(radius: number = 250): void {
+    if (!this.context2D) {
+      return
+    }
+    let rotationMoon: number = Math2D.toRadian(this._rotationMoon)
+    let rotationSun: number = Math2D.toRadian(this._rotationSun)
+    let revolution: number = Math2D.toRadian(this._revolution)
+
+    this.context2D.save();
+    this.context2D.translate(this.canvas.width * 0.5, this.canvas.height * 0.5);
+      this.context2D.save();
+      this.context2D.rotate(rotationSun);
+      // 这里可以调试下，看相对运动原点
+      this.fillLocalRectWithTitleUV(100, 100, '自转', 0.5, 0.5);
+      // this.fillLocalRectWithTitleUV(100, 100, '自转');
+      this.context2D.restore();
+
+      this.context2D.save();
+      this.context2D.rotate(revolution);
+      this.context2D.translate(radius, 0);
+      this.context2D.rotate(rotationMoon);
+      this.fillLocalRectWithTitleUV(80, 80, '自转+公转', 0.5, 0.5);
+      this.context2D.restore();
+    this.context2D.restore();
+  }
+
+  public draw4Quadrant(): void {
+
+    if (this.context2D === null) {
+      return;
+    }
+
+    this.context2D.save();
+
+    this.fillText("第一象限", this.canvas.width, this.canvas.height, 'rgba( 0 , 0 , 255 , 0.5 )', 'right', 'bottom', "20px sans-serif");
+    this.fillText("第二象限", 0, this.canvas.height, 'rgba( 0 , 0 , 255 , 0.5 )', 'left', 'bottom', "20px sans-serif");
+    this.fillText("第三象限", 0, 0, 'rgba( 0 , 0 , 255 , 0.5 )', 'left', 'top', "20px sans-serif");
+    this.fillText("第四象限", this.canvas.width, 0, 'rgba( 0 , 0 , 255 , 0.5 )', 'right', 'top', "20px sans-serif");
+
     this.context2D.restore();
   }
 
