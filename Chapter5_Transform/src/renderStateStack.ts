@@ -105,7 +105,7 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
 
   private _mouseX: number = 0;
   private _mouseY: number = 0;
-  private tank: Tank;
+  public tank: Tank;
 
 
   constructor(canvas: HTMLCanvasElement) {
@@ -125,7 +125,7 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
   }
 
   protected dispatchKeyPress(evt: CanvasKeyBoardEvent): void {
-      this.tank.onKeyPress(evt)
+    this.tank.onKeyPress(evt)
   }
 
   public render(): void {
@@ -1193,19 +1193,19 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
 
     this.context2D.save();
     this.context2D.translate(this.canvas.width * 0.5, this.canvas.height * 0.5);
-      this.context2D.save();
-      this.context2D.rotate(rotationSun);
-      // 这里可以调试下，看相对运动原点
-      this.fillLocalRectWithTitleUV(100, 100, '自转', 0.5, 0.5);
-      // this.fillLocalRectWithTitleUV(100, 100, '自转');
-      this.context2D.restore();
+    this.context2D.save();
+    this.context2D.rotate(rotationSun);
+    // 这里可以调试下，看相对运动原点
+    this.fillLocalRectWithTitleUV(100, 100, '自转', 0.5, 0.5);
+    // this.fillLocalRectWithTitleUV(100, 100, '自转');
+    this.context2D.restore();
 
-      this.context2D.save();
-      this.context2D.rotate(revolution);
-      this.context2D.translate(radius, 0);
-      this.context2D.rotate(rotationMoon);
-      this.fillLocalRectWithTitleUV(80, 80, '自转+公转', 0.5, 0.5);
-      this.context2D.restore();
+    this.context2D.save();
+    this.context2D.rotate(revolution);
+    this.context2D.translate(radius, 0);
+    this.context2D.rotate(rotationMoon);
+    this.fillLocalRectWithTitleUV(80, 80, '自转+公转', 0.5, 0.5);
+    this.context2D.restore();
     this.context2D.restore();
   }
 
@@ -1226,8 +1226,34 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
   }
 
   public drawTank(): void {
-    // this.tank.draw(this)
+    this.tank.draw(this)
+  }
+
+  public drawTank2(): void {
     this.tank.draw2(this)
   }
 
+  public drawTriangle(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, stroke: boolean = true): void {
+    if (!this.context2D) {
+      return
+    }
+
+    this.context2D.save();
+    this.context2D.lineWidth = 3;
+    this.context2D.strokeStyle = 'rgba( 0 , 0 , 0 , 0.5 )';
+    this.context2D.beginPath();
+    this.context2D.moveTo(x0, y0);
+    this.context2D.lineTo(x1, y1);
+    this.context2D.lineTo(x2, y2);
+    this.context2D.closePath();
+    if (stroke) {
+      this.context2D.stroke();
+    } else {
+      this.context2D.fill();
+    }
+
+    this.fillCircle(x2, y2, 5);
+    this.context2D.restore();
+
+  }
 }

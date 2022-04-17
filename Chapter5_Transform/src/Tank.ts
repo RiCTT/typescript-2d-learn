@@ -205,4 +205,5 @@ export class Tank {
     app.strokeLine(this.x, this.y, this.targetX, this.targetY);
     app.context2D.restore();
   }
+
 }
