@@ -1,5 +1,6 @@
-import { Canvas2DApplication } from './application'
+import { Canvas2DApplication, CanvasKeyBoardEvent, CanvasMouseEvent } from './application'
 import { Rectangle, Size, vec2, Math2D, mat2d } from './math2d'
+import { Tank } from './Tank';
 
 
 type PatternRepeat = "repeat" | "repeat-x" | "repeat-y" | "no-repeat"
@@ -104,11 +105,24 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
 
   private _mouseX: number = 0;
   private _mouseY: number = 0;
+  private tank: Tank;
 
 
   constructor(canvas: HTMLCanvasElement) {
     super(canvas)
     // this.addTimer(this.timeCallback.bind(this), 0.033)
+    this.tank = new Tank(true)
+    this.isSupportMouseMove = true
+  }
+
+  protected dispatchMouseMove(evt: CanvasMouseEvent): void {
+    this._mouseX = evt.canvasPosition.x
+    this._mouseY = evt.canvasPosition.y
+    this.tank.onMouseMove(evt)
+  }
+
+  protected dispatchKeyPress(evt: CanvasKeyBoardEvent): void {
+      this.tank.onKeyPress(evt)
   }
 
   public render(): void {
@@ -117,7 +131,8 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
       this.strokeGrid();
       this.drawCanvasCoordCenter()
       this.draw4Quadrant()
-      this.rotationAndRevolutionSimulation();
+      // this.rotationAndRevolutionSimulation();
+      this.drawTank()
     }
   }
 
@@ -125,6 +140,7 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
     this._rotationMoon += this._rotationMoonSpeed * intervalSec;
     this._rotationSun += this._rotationSunSpeed * intervalSec;
     this._revolution += this._revolutionSpeed * intervalSec;
+    this.tank.update(intervalSec)
   }
 
   public drawRect(x: number, y: number, w: number, h: number): void {
@@ -1204,6 +1220,10 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
     this.fillText("第四象限", this.canvas.width, 0, 'rgba( 0 , 0 , 255 , 0.5 )', 'right', 'top', "20px sans-serif");
 
     this.context2D.restore();
+  }
+
+  public drawTank(): void {
+    this.tank.draw(this)
   }
 
 }

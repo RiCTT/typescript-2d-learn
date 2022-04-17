@@ -32,10 +32,13 @@ let stopBtn: HTMLButtonElement | null = document.getElementById('stop') as HTMLB
 
 startBtn.onclick = (evt: Event): void => {
   app.start()
+  canvas2dApp.start()
 }
 
 stopBtn.onclick = (evt: Event): void => {
   app.stop()
+  canvas2dApp.stop()
+
 }
 
 
@@ -49,6 +52,9 @@ canvas2dApp.drawCanvasCoordCenter()
 // canvas2dApp.testFillLocalRectWithTitleUV()
 
 canvas2dApp.start()
+setTimeout(() => {
+  canvas2dApp.stop()
+}, 500)
 // canvas2dApp.strokeGrid();
 // canvas2dApp.testMyTextLayout();
 // canvas2dApp.loadAndDrawImage("./data/test.jpg");
