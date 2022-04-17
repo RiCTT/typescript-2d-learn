@@ -111,8 +111,11 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
   constructor(canvas: HTMLCanvasElement) {
     super(canvas)
     // this.addTimer(this.timeCallback.bind(this), 0.033)
-    this.tank = new Tank(true)
     this.isSupportMouseMove = true
+    this.tank = new Tank()
+    this.tank.initYAxis = true
+    this.tank.x = this.canvas.width * 0.5
+    this.tank.y = this.canvas.height * 0.5
   }
 
   protected dispatchMouseMove(evt: CanvasMouseEvent): void {
@@ -1223,7 +1226,8 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
   }
 
   public drawTank(): void {
-    this.tank.draw(this)
+    // this.tank.draw(this)
+    this.tank.draw2(this)
   }
 
 }

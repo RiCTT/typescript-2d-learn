@@ -27,14 +27,13 @@ export class Tank {
   public targetX: number = 0;
   public targetY: number = 0;
 
-  constructor(initYAxis: boolean = false ) {
-    this.initYAxis = initYAxis
-  }
+  constructor() {}
 
   public _lookAt(): void {
     let diffX: number = this.targetX - this.x
     let diffY: number = this.targetY - this.y
-    this.tankRotation = Math.atan2(diffY, diffX)
+    let radian = Math.atan2(diffY, diffX)
+    this.tankRotation = radian
   }
 
   public onMouseMove(evt: CanvasMouseEvent): void {
@@ -134,10 +133,9 @@ export class Tank {
     app.context2D.save()
 
     app.context2D.translate(this.x, this.y)
-    app.context2D.rotate(this.tankRotation)
+    app.context2D.rotate(this.initYAxis ? this.tankRotation - Math.PI * 0.5 : this.tankRotation);
     app.context2D.scale(this.scaleX, this.scaleY)
     // 底盘
-    
     app.context2D.save()
     app.context2D.fillStyle = 'grey'
     app.context2D.beginPath()
@@ -174,15 +172,12 @@ export class Tank {
     app.context2D.stroke()
     if (this.initYAxis) {
       app.context2D.translate(0, this.gunLength)
-    } else {
-      app.context2D.translate(this.gunLength, 0)
-    }
-    // 炮管的点
-    if (this.initYAxis) {
       app.context2D.translate(0, this.gunMuzzleRadius)
     } else {
+      app.context2D.translate(this.gunLength, 0)
       app.context2D.translate(this.gunMuzzleRadius, 0)
     }
+    // 炮管的点
     app.fillCircle(0, 0, 5, 'black')
     app.context2D.restore()
 

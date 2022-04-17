@@ -52,9 +52,6 @@ canvas2dApp.drawCanvasCoordCenter()
 // canvas2dApp.testFillLocalRectWithTitleUV()
 
 canvas2dApp.start()
-setTimeout(() => {
-  canvas2dApp.stop()
-}, 500)
 // canvas2dApp.strokeGrid();
 // canvas2dApp.testMyTextLayout();
 // canvas2dApp.loadAndDrawImage("./data/test.jpg");
