@@ -114,8 +114,8 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
     this.isSupportMouseMove = true
     this.tank = new Tank()
     this.tank.initYAxis = true
-    this.tank.x = this.canvas.width * 0.5
-    this.tank.y = this.canvas.height * 0.5
+    // this.tank.x = this.canvas.width * 0.5
+    // this.tank.y = this.canvas.height * 0.5
   }
 
   protected dispatchMouseMove(evt: CanvasMouseEvent): void {
@@ -135,7 +135,8 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
       this.drawCanvasCoordCenter()
       this.draw4Quadrant()
       // this.rotationAndRevolutionSimulation();
-      this.drawTank()
+      // this.drawTank()
+      this.drawTank2()
     }
   }
 

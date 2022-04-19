@@ -33,7 +33,10 @@ export class Tank {
     let diffX: number = this.targetX - this.x
     let diffY: number = this.targetY - this.y
     let radian = Math.atan2(diffY, diffX)
+    // radian弧度，-3.14 ~ 3.14
     this.tankRotation = radian
+    // console.log('cos: ', Math.cos(this.tankRotation))
+    // console.log('sin: ', Math.sin(this.tankRotation))
   }
 
   public onMouseMove(evt: CanvasMouseEvent): void {
@@ -46,6 +49,7 @@ export class Tank {
     let diffX: number = this.targetX - this.x
     let diffY: number = this.targetY - this.y
     let currSpeed: number = this.linearSpeed * intervalSec
+    // 前面是长度，后面的currSpeed * currSpeed可以看出x和y轴的线段距离，如果大于这个距离，说明还可以移动，否则不运动了
     if ((diffX * diffX + diffY * diffY) > currSpeed * currSpeed) {
       this.x = this.x + Math.cos(this.tankRotation) * currSpeed
       this.y = this.y + Math.sin(this.tankRotation) * currSpeed
@@ -130,9 +134,12 @@ export class Tank {
     if (!app.context2D) {
       return
     }
+    console.log('draw11')
+    console.log(this.tankRotation)
     app.context2D.save()
 
     app.context2D.translate(this.x, this.y)
+    // app.context2D.rotate(this.tankRotation)
     app.context2D.rotate(this.initYAxis ? this.tankRotation - Math.PI * 0.5 : this.tankRotation);
     app.context2D.scale(this.scaleX, this.scaleY)
     // 底盘
