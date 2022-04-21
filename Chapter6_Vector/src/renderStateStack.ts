@@ -458,7 +458,7 @@ export class TestCanvas2DApplication extends Canvas2DApplication {
     }
   }
 
-  public fillText(text: string, x: number, y: number, color: string = 'white', align: TextAlign = 'left', baseline: TextBaseline = 'top', font: FontType = '10px sans-serif'): void {
+  public fillText(text: string, x: number, y: number, color: string = 'white', align: TextAlign = 'left', baseline: TextBaseline = 'top', font: FontType | string = '10px sans-serif'): void {
     if (this.context2D !== null) {
       this.context2D.save();
       this.context2D.textAlign = align;
