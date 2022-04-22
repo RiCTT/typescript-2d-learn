@@ -111,6 +111,73 @@ export class vec2 {
     vec2.scale(direction, scalar, result);
     return vec2.sum(start, result, result);
   }
+
+  public static moveToawrds(start: vec2, direction: vec2, scalar: number, result: vec2 | null = null): vec2 {
+    if (result === null) {
+      result = new vec2()
+    }
+    vec2.scale(direction, scalar, result)
+    return vec2.sum(start, result, result)
+  }
+
+  public innerProduct(right: vec2): number {
+    return vec2.dotProduct(this, right)
+  }
+
+  // 点积，内积反映两个向量的夹角关系
+  // - 结果 > 0，说明两个向量同方向，夹角在0，90，
+  // - 结果 = 0，说明两个向量垂直
+  // - 结果 < 0，夹角在90-180
+  public static dotProduct(left: vec2, right: vec2): number {
+    return left.x * right.x + left.y * right.y
+  }
+
+  // 不太懂
+  public static crossProduct(left: vec2, right: vec2): number {
+    return left.x * right.y - left.y * right.x
+  }
+
+  public static getOrientation(from: vec2, to: vec2, isRadian: boolean = false): number {
+    let diff: vec2 = vec2.difference(to, from)
+    let radian = Math.atan2(diff.y, diff.x)
+    if (isRadian === false) {
+      radian = Math2D.toDegree(radian);
+    }
+    return radian
+  }
+
+  public static getAngle(a: vec2, b: vec2, isRadian: boolean = false): number {
+    let dot: number = vec2.dotProduct(a, b);
+    let radian: number = Math.acos(dot / (a.length * b.length));
+    if (isRadian === false) {
+      radian = Math2D.toDegree(radian);
+    }
+    return radian;
+  }
+
+  public static cosAngle(a: vec2, b: vec2, norm: boolean = false): number {
+    if (norm === true) {
+      a.normalize();
+      b.normalize();
+    }
+    return vec2.dotProduct(a, b);
+  }
+
+  public static sinAngle(a: vec2, b: vec2, norm: boolean = false): number {
+    if (norm === true) {
+      a.normalize();
+      b.normalize();
+    }
+    return (a.x * b.y - b.x * a.y);
+  }
+
+  public static zero = new vec2(0, 0)
+  public static xAxis = new vec2(1, 0)
+  public static yAxis = new vec2(0, 1)
+  public static nXAxis = new vec2(-1, 0)
+  public static nYAxis = new vec2(0, -1)
+  public static temp = new vec2(0, 0)
+  public static temp1 = new vec2(0, 0)
 }
 
 export class Size {
